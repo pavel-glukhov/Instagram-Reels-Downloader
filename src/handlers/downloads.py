@@ -1,8 +1,8 @@
+import logging
 import re
 
+from aiogram import Router, types
 from aiogram.filters import Command
-from aiogram import types, Router
-import logging
 
 from src.downloader.client import queue
 

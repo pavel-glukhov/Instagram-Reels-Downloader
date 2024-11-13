@@ -1,7 +1,8 @@
+import asyncio
 import logging
 import os
+
 import aiohttp
-import asyncio
 from aiogram.types import FSInputFile
 from instagram_reels.main.InstagramAPIClientImpl import InstagramAPIClientImpl
 
@@ -37,7 +38,9 @@ async def download_reels(clip_name: str, reel_id: str, client):
                     logger.info(f"Video {clip_name} successfully downloaded.")
                     return clip_name
                 else:
-                    logger.error(f"Failed to download video: {response.status}")
+                    logger.error(
+                        f"Failed to download video: {
+                            response.status}")
                     return None
     except aiohttp.ClientError as e:
         logger.error(f"Video download error: {e}")
@@ -60,7 +63,8 @@ async def process_queue(client):
                 try:
                     await message.answer_video(video=video_file)
                     os.remove(file_name)
-                    logger.info(f"Video {file_name} sent and deleted from local storage.")
+                    logger.info(
+                        f"Video {file_name} sent and deleted from local storage.")
                 except Exception as e:
                     logger.error(f"Error sending video: {e}")
                     await message.answer('Error sending the video.')

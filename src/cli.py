@@ -1,17 +1,19 @@
-import os
 import asyncio
+import logging
+import os
 
 from aiogram import Bot, Dispatcher
 
 from src.downloader.client import init_client, process_queue
 from src.handlers import downloads
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 def init_routers(dp):
     dp.include_router(downloads.router)
+
 
 async def run_app():
     bot = Bot(token=os.getenv('API_TOKEN'))

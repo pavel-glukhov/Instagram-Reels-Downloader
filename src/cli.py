@@ -3,7 +3,7 @@ import logging
 import os
 from aiogram import Bot, Dispatcher
 
-from middlewares.middleware_queue import QueueMiddleware
+from src.middlewares.middleware_queue import QueueMiddleware
 from src.downloader.client import init_client, process_queue
 from src.handlers import downloads
 

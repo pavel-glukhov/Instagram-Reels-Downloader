@@ -1,22 +1,18 @@
+import asyncio
 import logging
 import re
-
 from aiogram import Router, types
 from aiogram.filters import Command
 
-from src.downloader.client import queue
-
 router = Router()
 logger = logging.getLogger(__name__)
-
 
 @router.message(Command('start'))
 async def cmd_start(message: types.Message):
     await message.answer('Send here a link to download reels from Instagram.')
 
-
 @router.message()
-async def check_link(message: types.Message):
+async def check_link(message: types.Message, queue: asyncio.Queue):
     url_pattern = r"https?://(www\.)?instagram\.com/(reel|reels)/([^/?#&]+)"
     match = re.search(url_pattern, message.text)
     if match:

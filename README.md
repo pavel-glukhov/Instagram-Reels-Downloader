@@ -34,7 +34,7 @@ Activate the virtual environment:
 
 Install dependencies:
 
-    pip install -r requirements.txt
+    pip install -r .\requirements.txt --no-deps
 
 Run the script:
 

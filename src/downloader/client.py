@@ -1,9 +1,9 @@
-import asyncio
 import logging
 import os
 import aiohttp
 from aiogram.types import FSInputFile
 from instagram_reels.main.InstagramAPIClientImpl import InstagramAPIClientImpl
+import yarl
 
 logger = logging.getLogger(__name__)
 
@@ -21,12 +21,12 @@ async def download_reels(clip_name: str, reel_id: str, client):
         return None
     try:
         info = await client.get(reel_id)
+
         if not info.videos:
             logger.error("No videos found for the provided reel ID.")
             return None
-
         async with aiohttp.ClientSession() as session:
-            async with session.get(info.videos[0].url) as response:
+            async with session.get(yarl.URL(info.videos[0].url, encoded=True)) as response:
                 if response.status == 200:
                     with open(clip_name, "wb+") as out_file:
                         out_file.write(await response.read())
